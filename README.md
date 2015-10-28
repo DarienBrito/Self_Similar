@@ -7,7 +7,7 @@ An implementation in SuperCollider of Tom Johnson's techniques, as described in 
 _________________________________________________________________________
 
 
-##**Introduction**
+##**What is this?**
 
 This repository is about number series. Its purpose is simply to offer an insight into Tom Johnson's ideas on regard to pattern generation and organisation by means of the SuperCollider programming language.
 
@@ -35,9 +35,6 @@ although such solutions would shine in the context of this endeavour). If you ha
 
 I have kept the aural realisation of the sequences, that is pitch, rhythm and sound timbre, as simple as possible (as boring as possible, in other words). This is because I wanted to have a standard definition for the sequences so its always clear what is going on. Remember that this is not about sound synthesis, composition or aesthetics, but just about integer number sequences. All the examples can be taken as far as you want, and the series can be used to anything that use numbers for execution.
 
-* If you want to see who I am you can find me at:  www.darienbrito.com 
-* If you want to say "Hi" you can write me an e-mail to: darienbrito@icloud.com
-
 ##Note
 
 Keep in mind that the numbers can represent an arbitrary parameter, that is anything you like. However, for the sake of simplicity, I'm relating the numbers to corresponding degrees in a Scale Class in SuperCollider, where 0 is the first degree, 1 the second degree, etc.
@@ -46,7 +43,10 @@ The snippet of the series on the other hand, is kept with 1 as the starting poin
 
 Look at the first example in “Counting 123” that contains a detailed explanation of the format I've chosen to show the procedures, and what each parameter represents.
 
-Darien Brito
-Den Haag, 2015 
+* If you want to see who I am you can find me at:  www.darienbrito.com 
+* If you want to say "Hi" you can write me an e-mail to: darienbrito@icloud.com
+
+______________________________________________________________________________
+Darien Brito - Den Haag, 2015 
 
 
