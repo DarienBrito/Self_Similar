@@ -1,6 +1,6 @@
 # self_similar
 
-This document is about number series. Its purpose is simply to offer an insight into Tom Johnson's ideas on regard to pattern generation and organisation by means of the SuperCollider programming language.
+This repository is about number series. Its purpose is simply to offer an insight into Tom Johnson's ideas on regard to pattern generation and organisation by means of the SuperCollider programming language.
 
 My intention while writing was simply to understand better what I was reading in "Self-Similar Melodies" and to distract myself from the many urgent things that need to be done in my life, and that I keep procrastinating.
 
