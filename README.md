@@ -2,8 +2,8 @@
 
 _________________________________________________________________________
 
-An implementation of Tom Johnson's techniques as described in the 
-"Self-Similar Melodies" book, for SuperCollider
+An implementation in SuperCollider of Tom Johnson's techniques, as described in the 
+"Self-Similar Melodies" book
 
                                            Darien Brito. June/July, 2015
 _________________________________________________________________________
