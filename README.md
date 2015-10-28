@@ -43,10 +43,10 @@ The snippet of the series on the other hand, is kept with 1 as the starting poin
 
 Look at the first example in “Counting 123” that contains a detailed explanation of the format I've chosen to show the procedures, and what each parameter represents.
 
-* If you want to see who I am you can find me at:  www.darienbrito.com 
-* If you want to say "Hi" you can write me an e-mail to: darienbrito@icloud.com
+* If you want to see who I am and what do I do you can find me at:  www.darienbrito.com 
+* Or if you just want to say "hi" you can write me an e-mail to: darienbrito@icloud.com
 
 ______________________________________________________________________________
-Darien Brito - Den Haag, 2015 
+Darien Brito - Den Haag, Nederlands, 2015 
 
 
