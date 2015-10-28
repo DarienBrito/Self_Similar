@@ -4,8 +4,6 @@ _________________________________________________________________________
 
 An implementation in SuperCollider of Tom Johnson's techniques, as described in the 
 "Self-Similar Melodies" book
-
-                                           Darien Brito. June/July, 2015
 _________________________________________________________________________
 
 
@@ -39,3 +37,16 @@ I have kept the aural realisation of the sequences, that is pitch, rhythm and so
 
 * If you want to see who I am you can find me at:  www.darienbrito.com 
 * If you want to say "Hi" you can write me an e-mail to: darienbrito@icloud.com
+
+##Note
+
+Keep in mind that the numbers can represent an arbitrary parameter, that is anything you like. However, for the sake of simplicity, I'm relating the numbers to corresponding degrees in a Scale Class in SuperCollider, where 0 is the first degree, 1 the second degree, etc.
+
+The snippet of the series on the other hand, is kept with 1 as the starting point instead of 0, so in case that you have the "Self Similar Melodies" book you can easily check what serie are you looking at. The sections and subsections of each part are kept with the titles of the book as well.
+
+Look at the first example in “Counting 123” that contains a detailed explanation of the format I've chosen to show the procedures, and what each parameter represents.
+
+Darien Brito
+Den Haag, 2015 
+
+
