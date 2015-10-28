@@ -1,0 +1,71 @@
+```
+/*_______________________
+
+Constants for our tests
+_________________________*/
+
+// I use this instead of the SC default Patterns sound because I dislike the default sound very much :)
+(
+SynthDef(\sine, {|freq = 440, amp = 0.1, rel = 0.8|
+	var sig = SinOsc.ar(freq, 0, amp);
+	var env = EnvGen.kr(Env.perc(releaseTime: rel),doneAction:2);
+	sig = sig*env;
+	Out.ar(0, sig!2)
+}).add;
+
+// I chose the good old-fashioned minor scale, but you can change it to anything you like:
+~scale = Scale.minor;
+// This function compensates for higher pitches being perceived psicoacoustically as louder:
+~amp = Pfunc({ |ev| if(ev.degree < 1) { 0.1 } { ev.degree.reciprocal * 0.25}} );
+)
+
+//Test
+Synth(\sine)
+
+
+/*_________________________________________________
+
+                   Counting 1 2 3
+___________________________________________________*/
+
+
+/*_______________________
+
+Simple counting:            //<---The labeling of the serie
+_________________________*/
+
+1
+2   //<---The snippet of the serie
+3
+(...)
+
+(
+// Structure (flexible parameters for you to try out):
+var limit = 10; // The maximum number count
+var dur = 0.15; // The duration between the notes
+var interval = 1; // The interval for the note sequence
+
+// Make sequence:
+var count = Array.series(limit, 0, interval);
+
+// A container (if you want to retrieve the sequence):
+~sequence = List.new;
+
+p = Pbindef(\counting, //Pbindef so you can change it on the fly to something else
+	\instrument, \sine, //The instrument chosen in "Constants"
+	\scale, ~scale, //The scale chosen in "Constants"
+	\degree, Pseq(count, inf), // The sequence is applied to "degree" of the scale
+	\recorder, Pfunc({ |ev| ~sequence.add(ev.degree) }), // To store the resulting sequence
+	\amp, ~amp, // The function to compensate for higher frequencies perceived as louder defined in "Constants"
+	\dur, dur // The local duration
+).quant_(0).play // Quantization of 0 so it starts immediately
+)
+p.pause
+p.resume
+~sequence.postln; // Retrieve played serie
+
+
+
+
+
+```
