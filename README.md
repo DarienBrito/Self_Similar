@@ -1,5 +1,14 @@
 # self_similar
 
+/*______________________________________________________________________
+
+  Self-Similar Melodies. An implementation of Tom Johnson's techniques
+  in SuperCollider. [Part 1]
+
+                                           Darien Brito. June/July, 2015
+________________________________________________________________________*/
+
+
 ##**Introduction**
 
 This repository is about number series. Its purpose is simply to offer an insight into Tom Johnson's ideas on regard to pattern generation and organisation by means of the SuperCollider programming language.
