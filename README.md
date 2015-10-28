@@ -1,6 +1,6 @@
 # self_similar
 
-**Introduction**
+##**Introduction**
 
 This repository is about number series. Its purpose is simply to offer an insight into Tom Johnson's ideas on regard to pattern generation and organisation by means of the SuperCollider programming language.
 
@@ -13,7 +13,7 @@ Try out every serie and feel free to bend it, twist it and/or to change it for y
 If you want to know who Tom Johnson is and what he does you can go to:
 http://www.editions75.com
 
-**About the implementation**
+##**About the implementation**
 
 There are basically two approaches that one may take when trying to code the sequences in the book:
 
