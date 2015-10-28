@@ -1,12 +1,12 @@
 # self_similar
 
-/*______________________________________________________________________
+_________________________________________________________________________
 
-  Self-Similar Melodies. An implementation of Tom Johnson's techniques
-  in SuperCollider. [Part 1]
+An implementation of Tom Johnson's techniques as described in the 
+"Self-Similar Melodies" book, for SuperCollider
 
                                            Darien Brito. June/July, 2015
-________________________________________________________________________*/
+_________________________________________________________________________
 
 
 ##**Introduction**
