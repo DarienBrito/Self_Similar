@@ -15,6 +15,7 @@ http://creativecommons.org/licenses/by-nc-sa/4.0/
                      Transforming
 ________________________________________________________________*/
 
+
 /*_______________________
 
 Constants
@@ -179,3 +180,240 @@ p = Pbindef(\transform1,
 	\dur, dur
 ).quant_(0).play
 )
+
+
+// Calculate the number of elements per row with a function xn = 2xn + 1 + xn
+(~rowCalculator = { | rowNumber |
+	var result;
+	result = ((2 * rowNumber) + 1)  + rowNumber;
+})
+~rowCalculator.value(3)
+
+
+
+/*______________________________________________________________
+
+                     Transforming Dragons
+________________________________________________________________*/
+
+
+// Before continuing, notice that I've created 2 new instance methods for SequenceableCollection:
+.binarize // Will keep 0's and make a 1 for every value > 1
+.binarizeInvert // Will binarize and invert the vals. if 0 then 1 else 0
+// This are part of the git repository
+[1,2,3,4,0].binarize;
+[0,1,0].binarizeInvert;
+
+// Considering the dragon...
+// After n folds, there are 2^n parts and 2^n - 1 creases
+(
+var folds =  10;
+var parts = 2.pow(folds);
+var creases = parts - 1;
+"Parts: %".format(parts).postln;
+"Creases: %".format(creases).postln;
+)
+
+// The number of folds outnumbers the number of creases by 1
+// At every level, the type 1 creases outnumber the type 0 creases by 1 due to the middle fold
+
+// For convenience, we put our dragon generator in a function:
+(
+~dragonMaker = { |n|
+	var center;
+	var col = List[1];
+	var invert = List(), final = List(), seq = List(), temp;
+	var tail;
+	seq.add(col);
+	n.do{
+		tail = col.size;
+		invert = col.binarizeInvert.reverse; // binarizeInvert simply does this: if(item != 0) {0} {1}}
+		temp = col.insert(tail,1); // This is desctructive so... a workaround?
+		final = temp ++ invert;
+		col = final;
+		seq.add(col);
+	};
+	seq.do{|item| item.removeAt( item.size -1 )}; //Remove the last item of sequence
+	seq = seq.flatten;
+})
+
+~dragonMaker.(4)
+
+      1
+     110
+   1101100
+110110011100100
+
+(
+var limit = 10;
+var dur = 0.15;
+var interval = 2;
+var seq =
+~sequence = ~dragonMaker.(limit);
+p = Pbindef(\dragon1,
+	\instrument, \sine,
+	\scale, ~scale,
+	\degree, Pseq(seq * interval, inf),
+	\recorder, Pfunc({ |ev| ~sequence.add(ev.degree) }), // To store the resulting sequence
+	\amp, ~amp, // To compensate for higher frequencies perceived as louder
+	\dur, dur
+).quant_(0).play
+)
+
+      1+
+     1+1+0-
+   1+1+0-1+1+0-0-
+1+1+0-1+1+0-0-1+1+1+0-0-1+0-0-
+// A dragon which goes up one degree when 1 and one degree below when 0
+(
+var limit = 10;
+var dur = 0.15;
+var interval = 1;
+var seq = ~dragonMaker.(limit);
+var val = 0;
+
+p = Pbindef(\dragon2,
+	\instrument, \sine,
+	\scale, ~scale,
+	\index, Pseries(0),
+	\degree, Pfunc({|ev|
+		var i = ev.index;
+		if (seq[i] > 0) { val = val + 1 } { val = val - 1};
+		val * interval;
+	}),
+	\recorder, Pfunc({ |ev| ~sequence.add(ev.degree) }), // To store the resulting sequence
+	\amp, ~amp, // To compensate for higher frequencies perceived as louder
+	\dur, dur
+).quant_(0).play
+)
+
+// SuperCollider has generative-grammar facilites, one is in the NatureToolkit Quark.
+// I however, as usual, prefered for this to illustrate the process instead of using ready-made solutions.
+(
+~conversor = { |input|
+	var output;
+	// Change it to whatever else if you want (hz, midinotes, etc)
+	switch(input)
+	{"a"} {output = 5}
+	{"b"} {output = 6}
+	{"c"} {output = 0}
+	{"d"} {output = 1}
+	{"e"} {output = 2};
+	output
+};
+
+~generation = { |input|
+	var output;
+	// Our rules:
+	switch(input)
+	{"a"} {output = "be"}
+	{"b"} {output = "ad"}
+	{"c"} {output = "c"}
+	{"d"} {output = "a"}
+	{"e"} {output = "dc"};
+	output
+};
+
+~stringMaker = { |input|
+	var transforms = List();
+	input.do{|i|
+		var new = ~generation.(i.asString);
+		new.do{|i| transforms.add(i)}
+	};
+	transforms;
+};
+
+~sequenceMaker = { |input, iterations = 1|
+	var output = List();
+	var final;
+	var x;
+	iterations.do{
+		x = ~stringMaker.(input);
+		output.add(x);
+		input = x;
+	};
+	output = output.flatten;
+};
+)
+
+// This is our final transforming gadget:
+~sequenceMaker.("a", 3)
+
+// Transforming by finite automaton
+a->be
+b->ad
+c->c
+d->a
+e->dc
+
+(
+var start = "a";
+var limit = 5;
+var dur = 0.15;
+var interval = 1;
+var seq = ~sequenceMaker.(start, limit).collect{|i| ~conversor.(i.asString)};
+var repetitions = seq.size;
+
+p = Pbindef(\automata1,
+	\instrument, \sine,
+	\scale, ~scale,
+	\degree, Pseq(seq * interval,1),
+	\recorder, Pfunc({ |ev| ~sequence.add(ev.degree) }), // To store the resulting sequence
+	\amp, ~amp, // To compensate for higher frequencies perceived as louder
+	\dur, dur
+).quant_(0).play
+)
+
+// For this one we need to change the rules and the decoding:
+a->bcac
+b->acbd
+c->abar
+d->bcbd
+r->rrrr
+(
+~generation = { |input|
+	var output;
+	// Our rules:
+	switch(input)
+	{"a"} {output = "bcac"}
+	{"b"} {output = "acbd"}
+	{"c"} {output = "abar"}
+	{"d"} {output = "bcbd"}
+	{"r"} {output = "rrrr"};
+	output
+};
+
+~conversor = { |input|
+	var output;
+	// Change it to whatever else if you want (hz, midinotes, etc)
+	switch(input)
+	{"a"} {output = 5}
+	{"b"} {output = 6}
+	{"c"} {output = 0}
+	{"d"} {output = 1}
+	{"r"} {output = \}; // backslash is shortcut for a REST in SC.
+	output
+};
+)
+
+(
+var start = "a";
+var limit = 5;
+var dur = 0.15;
+var interval = 1;
+var seq = ~sequenceMaker.(start, limit).collect{|i| ~conversor.(i.asString)};
+var repetitions = seq.size;
+
+p = Pbindef(\automata2,
+	\instrument, \sine,
+	\scale, ~scale,
+	\degree, Pseq(seq * interval,1),
+	\recorder, Pfunc({ |ev| ~sequence.add(ev.degree) }), // To store the resulting sequence
+	\amp, ~amp, // To compensate for higher frequencies perceived as louder
+	\dur, Pfunc({ |ev| ev.degree.postln; 0})
+).quant_(0).play
+)
+
+// The book has 2 more examples, I do not include them however because basically all you have to do is to change
+// the rules and the conversor :)
+
