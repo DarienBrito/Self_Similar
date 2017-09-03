@@ -7,7 +7,7 @@ An implementation in SuperCollider of Tom Johnson's techniques, as described in 
 _________________________________________________________________________
 
 
-##**What is this?**
+## What is this?
 
 This repository is about number series. Its purpose is simply to offer an insight into Tom Johnson's ideas on regard to pattern generation and organisation by means of the SuperCollider programming language.
 
@@ -20,7 +20,7 @@ Try out every serie and feel free to bend it, twist it and/or to change it for y
 If you want to know who Tom Johnson is and what he does you can go to:
 http://www.editions75.com
 
-##**About the implementation**
+## About the implementation
 
 There are basically two approaches that one may take when trying to code the sequences in the book:
 
@@ -35,7 +35,7 @@ although such solutions would shine in the context of this endeavour). If you ha
 
 I have kept the aural realisation of the sequences, that is pitch, rhythm and sound timbre, as simple as possible (as boring as possible, in other words). This is because I wanted to have a standard definition for the sequences so its always clear what is going on. Remember that this is not about sound synthesis, composition or aesthetics, but just about integer number sequences. All the examples can be taken as far as you want, and the series can be used to anything that use numbers for execution.
 
-##Note
+## Note
 
 Keep in mind that the numbers can represent an arbitrary parameter, that is anything you like. However, for the sake of simplicity, I'm relating the numbers to corresponding degrees in a Scale Class in SuperCollider, where 0 is the first degree, 1 the second degree, etc.
 
